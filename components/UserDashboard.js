@@ -102,7 +102,7 @@ export default function UserDashboard({ user }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Navigation Tabs */}
         <div className="border-b border-gray-200 mb-8">
-          <nav className="-mb-px flex space-x-8">
+          <nav className="-mb-px flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
             <button
               onClick={() => setActiveTab('overview')}
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
@@ -130,7 +130,7 @@ export default function UserDashboard({ user }) {
         {activeTab === 'overview' && (
           <div className="space-y-8">
             {/* Balance Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Toplam Borç */}
               <div className="bg-white overflow-hidden shadow rounded-lg">
                 <div className="p-5">
@@ -223,7 +223,7 @@ export default function UserDashboard({ user }) {
                 <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
                   Aylık Aidat Bilgileri
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <dt className="text-sm font-medium text-gray-500">Aylık Aidat Tutarı</dt>
                     <dd className="mt-1 text-2xl font-semibold text-gray-900">
@@ -242,18 +242,30 @@ export default function UserDashboard({ user }) {
 
             {payments.length > 0 && (
               <div className="bg-white shadow rounded-lg">
-                <div className="px-4 py-5 sm:p-6">
+                <div className="px-4 py-5 sm:p-6 overflow-x-auto">
                   <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
                     Son Ödemeler
                   </h3>
-                  <ul className="divide-y divide-gray-200">
-                    {payments.slice(0, 5).map(payment => (
-                      <li key={payment.id} className="py-3 flex justify-between text-sm">
-                        <span className="text-gray-500">{formatDate(payment.payment_date)}</span>
-                        <span className="font-medium text-green-600">{formatCurrency(payment.amount)}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tarih</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tutar</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {payments.slice(0, 5).map(payment => (
+                        <tr key={payment.id}>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {formatDate(payment.payment_date)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
+                            {formatCurrency(payment.amount)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             )}
