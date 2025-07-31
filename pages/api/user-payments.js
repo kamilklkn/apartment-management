@@ -1,4 +1,4 @@
-/ pages/api/user-payments.js
+// pages/api/user-payments.js
 import { supabaseAdmin } from '../../lib/supabase'
 
 export default async function handler(req, res) {

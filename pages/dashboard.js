@@ -1,4 +1,4 @@
-/ pages/dashboard.js
+// pages/dashboard.js
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { getCurrentUser } from '../lib/supabase'

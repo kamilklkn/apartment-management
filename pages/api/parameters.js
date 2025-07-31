@@ -1,4 +1,4 @@
-/ pages/api/parameters.js
+// pages/api/parameters.js
 import { supabaseAdmin } from '../../lib/supabase'
 
 export default async function handler(req, res) {
