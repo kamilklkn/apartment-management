@@ -7,6 +7,7 @@ export default function UserDashboard({ user }) {
   const [balance, setBalance] = useState(null)
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('overview')
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
 
   useEffect(() => {
     if (user?.id) {
@@ -31,6 +32,12 @@ export default function UserDashboard({ user }) {
     }
   }
 
+  useEffect(() => {
+    if (payments.length > 0) {
+      setSelectedYear(new Date(payments[0].payment_date).getFullYear())
+    }
+  }, [payments])
+
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('tr-TR', {
       style: 'currency',
@@ -47,6 +54,9 @@ export default function UserDashboard({ user }) {
       minute: '2-digit'
     })
   }
+
+  const paymentYears = [...new Set(payments.map(p => new Date(p.payment_date).getFullYear()))].sort((a, b) => b - a)
+  const filteredPayments = payments.filter(p => new Date(p.payment_date).getFullYear() === selectedYear)
 
   if (loading) {
     return (
@@ -68,15 +78,23 @@ export default function UserDashboard({ user }) {
               </h1>
               <p className="text-gray-600">Daire {user?.apartment_number}</p>
             </div>
-            <button
-              onClick={() => {
-                localStorage.removeItem('apartment_user_id')
-                window.location.reload()
-              }}
-              className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
-            >
-              Çıkış
-            </button>
+            <div className="flex space-x-4">
+              <button
+                onClick={loadUserData}
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+              >
+                Yenile
+              </button>
+              <button
+                onClick={() => {
+                  localStorage.removeItem('apartment_user_id')
+                  window.location.reload()
+                }}
+                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+              >
+                Çıkış
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -221,6 +239,24 @@ export default function UserDashboard({ user }) {
                 </div>
               </div>
             </div>
+
+            {payments.length > 0 && (
+              <div className="bg-white shadow rounded-lg">
+                <div className="px-4 py-5 sm:p-6">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+                    Son Ödemeler
+                  </h3>
+                  <ul className="divide-y divide-gray-200">
+                    {payments.slice(0, 5).map(payment => (
+                      <li key={payment.id} className="py-3 flex justify-between text-sm">
+                        <span className="text-gray-500">{formatDate(payment.payment_date)}</span>
+                        <span className="font-medium text-green-600">{formatCurrency(payment.amount)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -231,12 +267,28 @@ export default function UserDashboard({ user }) {
               <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
                 Ödeme Geçmişi
               </h3>
-              {payments.length === 0 ? (
+              {paymentYears.length > 1 && (
+                <div className="mb-4 flex items-center">
+                  <label className="mr-2 text-sm text-gray-700">Yıl:</label>
+                  <select
+                    value={selectedYear}
+                    onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+                    className="border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+                  >
+                    {paymentYears.map(year => (
+                      <option key={year} value={year}>{year}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+              {filteredPayments.length === 0 ? (
                 <div className="text-center py-8">
                   <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">Henüz ödeme yok</h3>
+                  <h3 className="mt-2 text-sm font-medium text-gray-900">
+                    {payments.length === 0 ? 'Henüz ödeme yok' : 'Seçilen yıl için ödeme yok'}
+                  </h3>
                   <p className="mt-1 text-sm text-gray-500">Aidat ödemeleriniz burada görüntülenecek.</p>
                 </div>
               ) : (
@@ -260,7 +312,7 @@ export default function UserDashboard({ user }) {
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
-                        {payments.map((payment, index) => (
+                        {filteredPayments.map((payment, index) => (
                           <tr key={payment.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                               {formatDate(payment.payment_date)}
