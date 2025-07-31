@@ -1,4 +1,4 @@
-/ pages/admin.js
+// pages/admin.js
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import AdminPanel from '../components/AdminPanel'

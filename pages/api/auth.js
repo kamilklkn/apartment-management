@@ -1,4 +1,4 @@
-/ pages/api/auth.js
+// pages/api/auth.js
 import { supabaseAdmin } from '../../lib/supabase'
 import bcrypt from 'bcryptjs'
 
