@@ -1,173 +1,139 @@
+/* styles/globals.css - Bu dosyanın tamamını değiştirin */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Inter Font Import */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables */
+:root {
+  --font-size: 14px;
+  --background: #ffffff;
+  --foreground: #0e121b;
+  --border: rgba(0, 0, 0, 0.1);
+  --input-background: #f3f3f5;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+}
 
 @layer base {
   html {
     font-family: 'Inter', system-ui, sans-serif;
+    font-size: var(--font-size);
   }
   
   body {
     @apply bg-gray-50 text-gray-900;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 }
 
 @layer components {
   /* Button Components */
   .btn-primary {
-    @apply bg-primary-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200;
+    @apply bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 transition-colors duration-200;
   }
   
   .btn-secondary {
     @apply bg-gray-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200;
   }
   
-  .btn-success {
-    @apply bg-success-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-success-700 focus:outline-none focus:ring-2 focus:ring-success-500 focus:ring-offset-2 transition-colors duration-200;
-  }
-  
-  .btn-warning {
-    @apply bg-warning-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-warning-700 focus:outline-none focus:ring-2 focus:ring-warning-500 focus:ring-offset-2 transition-colors duration-200;
-  }
-  
-  .btn-danger {
-    @apply bg-danger-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-danger-700 focus:outline-none focus:ring-2 focus:ring-danger-500 focus:ring-offset-2 transition-colors duration-200;
-  }
-  
-  .btn-outline {
-    @apply border-2 border-primary-600 text-primary-600 px-4 py-2 rounded-lg font-medium hover:bg-primary-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200;
-  }
-  
   /* Input Components */
   .input-primary {
-    @apply mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-colors duration-200;
-  }
-  
-  .input-error {
-    @apply mt-1 block w-full border-danger-300 rounded-lg shadow-sm focus:ring-danger-500 focus:border-danger-500 sm:text-sm transition-colors duration-200;
+    @apply mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors duration-200;
   }
   
   /* Card Components */
   .card {
-    @apply bg-white shadow-soft rounded-xl overflow-hidden;
-  }
-  
-  .card-elevated {
-    @apply bg-white shadow-medium rounded-xl overflow-hidden;
-  }
-  
-  .card-header {
-    @apply px-6 py-4 border-b border-gray-200 bg-gray-50;
+    @apply bg-white shadow-lg rounded-xl overflow-hidden;
   }
   
   .card-body {
     @apply px-6 py-4;
   }
   
-  .card-footer {
-    @apply px-6 py-4 border-t border-gray-200 bg-gray-50;
-  }
-  
-  /* Alert Components */
-  .alert-success {
-    @apply bg-success-50 border border-success-200 text-success-800 px-4 py-3 rounded-lg;
-  }
-  
-  .alert-error {
-    @apply bg-danger-50 border border-danger-200 text-danger-800 px-4 py-3 rounded-lg;
-  }
-  
-  .alert-warning {
-    @apply bg-warning-50 border border-warning-200 text-warning-800 px-4 py-3 rounded-lg;
-  }
-  
-  .alert-info {
-    @apply bg-primary-50 border border-primary-200 text-primary-800 px-4 py-3 rounded-lg;
-  }
-  
-  /* Table Components */
-  .table-container {
-    @apply overflow-hidden shadow-soft rounded-lg;
-  }
-  
-  .table {
-    @apply min-w-full divide-y divide-gray-200;
-  }
-  
-  .table-header {
-    @apply bg-gray-50;
-  }
-  
-  .table-header th {
-    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
-  }
-  
-  .table-body {
-    @apply bg-white divide-y divide-gray-200;
-  }
-  
-  .table-row:nth-child(even) {
-    @apply bg-gray-50;
-  }
-  
-  .table-cell {
-    @apply px-6 py-4 text-sm text-gray-900;
-  }
-  
-  /* Navigation */
-  .nav-tab {
-    @apply py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200;
-  }
-  
-  .nav-tab-active {
-    @apply border-primary-500 text-primary-600;
-  }
-  
-  .nav-tab-inactive {
-    @apply border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300;
-  }
-  
-  /* Loading States */
+  /* Loading Components */
   .loading-spinner {
-    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600;
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600;
   }
-  
-  .loading-dots::after {
-    content: '';
-    @apply inline-block w-1 h-1 rounded-full bg-current ml-1 animate-bounce-soft;
-    animation-delay: 0.1s;
+
+  /* Login Specific Components */
+  .login-card {
+    @apply bg-white rounded-3xl shadow-lg;
   }
-  
-  /* Status Badges */
-  .badge-success {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800;
+
+  .login-input {
+    @apply w-full bg-transparent border-none outline-none text-sm text-gray-900 placeholder-gray-400;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.084px;
   }
-  
-  .badge-warning {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-100 text-warning-800;
+
+  .login-input-container {
+    @apply bg-white rounded-lg border border-gray-200 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all;
+    box-shadow: 0px 1px 2px 0px rgba(10, 13, 20, 0.03);
   }
-  
-  .badge-danger {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-danger-100 text-danger-800;
+
+  .login-button {
+    @apply w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50;
+    background-color: #335cff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.084px;
+    box-shadow: 0px 1px 2px 0px rgba(14, 18, 27, 0.24), 0px 0px 0px 1px #335cff;
   }
-  
-  .badge-info {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800;
+
+  .login-button:hover {
+    background-color: #2a4fd7;
   }
-  
-  .badge-gray {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800;
+
+  .login-label {
+    @apply block text-sm font-medium text-gray-900 mb-2;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: #0e121b;
+    letter-spacing: -0.084px;
   }
-  
-  /* Layout helpers */
-  .container-main {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+
+  .login-title {
+    @apply text-xl font-medium text-center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: #0e121b;
+    font-size: 20px;
+    line-height: 28px;
   }
-  
-  .section-spacing {
-    @apply py-8 sm:py-12;
+
+  .login-subtitle {
+    @apply text-sm text-center text-gray-600;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: #525866;
+    font-size: 14px;
+    letter-spacing: -0.084px;
+    line-height: 20px;
+  }
+
+  .forgot-password-link {
+    @apply text-sm font-medium text-blue-600 hover:underline cursor-pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: #335cff;
+    letter-spacing: -0.084px;
+  }
+
+  .info-text {
+    @apply text-sm text-gray-600;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: #525866;
+    letter-spacing: -0.084px;
   }
 }
 
@@ -184,18 +150,50 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
-  
-  .truncate-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+
+  /* Custom spacing utilities */
+  .adjust-letter-spacing {
+    letter-spacing: -0.084px;
+  }
+
+  /* Size utilities */
+  .size-14 {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .size-5 {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .size-full {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Animation keyframes */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading-text {
+  animation: pulse 2s infinite;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .login-container {
+    padding: 1rem;
   }
   
-  .truncate-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  .login-card {
+    border-radius: 1.5rem;
   }
 }
