@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <section className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-center px-4">
+      <section className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-center px-4 mt-0 pt-0">
         <h1 className="text-4xl font-bold mb-4 text-gray-800">
           Apartman Aidat Takip Sistemi
         </h1>
