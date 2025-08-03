@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { getCurrentUser } from '../lib/supabase'
-import Login from './login'
+import Link from 'next/link'
+import Layout from '../components/Layout'
 
 export default function Home() {
   const [user, setUser] = useState(null)
@@ -31,5 +32,22 @@ export default function Home() {
     )
   }
 
-  return <Login />
+  return (
+    <Layout>
+      <section className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-center px-4">
+        <h1 className="text-4xl font-bold mb-4 text-gray-800">
+          Apartman Aidat Takip Sistemi
+        </h1>
+        <p className="text-gray-600 mb-8 max-w-md">
+          Apartman aidatlarını kolayca takip edin ve ödemelerinizi yönetin.
+        </p>
+        <Link
+          href="/login"
+          className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+        >
+          Giriş Yap
+        </Link>
+      </section>
+    </Layout>
+  )
 }
